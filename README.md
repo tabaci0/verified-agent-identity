@@ -12,8 +12,16 @@ This skill enables AI agents to create, manage, link, prove and verify ownership
 
 1. Ask bot to install the skill:
 
+   Install with clawhub:
+
    ```plaintext
    Install the skill `npx clawhub@latest install verified-agent-identity`
+   ```
+
+   Or install with skills.sh:
+
+   ```plaintext
+   Intall the skill `npx skills add BillionsNetwork/verified-agent-identity`
    ```
 
    Or
@@ -31,9 +39,19 @@ This skill enables AI agents to create, manage, link, prove and verify ownership
 ### Human CTA:
 
 1. Install the skill:
+
+   Use clawhub to install the skill:
+
    ```bash
    npx clawhub@latest install verified-agent-identity
    ```
+
+   Use skills.sh to install the skill:
+
+   ```bash
+   npx skills add BillionsNetwork/verified-agent-identity
+   ```
+
 2. Create a new identity:
 
    ```bash
@@ -45,8 +63,10 @@ This skill enables AI agents to create, manage, link, prove and verify ownership
 
    ```bash
    # Use an existing private key to create an identity
-   node scripts/createNewEthereumIdentity.js --key <your-ethereum-private-key>
+   BILLIONS_NETWORK_MASTER_KMS_KEY="<your-strong-secret>" node scripts/createNewEthereumIdentity.js --key <your-ethereum-private-key>
    ```
+
+   > **Warning**: Only pass a **dedicated identity key** to `--key` — never an Ethereum wallet key that holds assets. If the key file is exposed, any key stored here could be used to impersonate the agent or, if reused, to control the associated wallet.
 
 3. Generate a verification link to connect your human identity to the agent:
 
@@ -96,9 +116,13 @@ All cryptographic material is persisted to `$HOME/.openclaw/billions/` — a dir
 | `challenges.json`  | Per-DID challenge history                                                          |
 | `credentials.json` | Verifiable credentials                                                             |
 
+After the first run, restrict access to this directory: `chmod 700 ~/.openclaw/billions`
+
 There are several ways of storing private keys, to enable master key encryption as described in the **KMS Encryption** section below.
 
 ### KMS Encryption
+
+> See [SECURITY.md](SECURITY.md) for the full threat model, the rationale for shipping a plaintext storage mode, and the operator hardening checklist.
 
 Set the environment variable `BILLIONS_NETWORK_MASTER_KMS_KEY` to enable AES-256-GCM at-rest encryption for the private keys inside `kms.json`. When set, every key value is individually encrypted on write; when absent, keys are stored as plain hex strings.
 
@@ -175,6 +199,7 @@ For all other ways to pass environment variables to a skill see the [OpenClaw en
 - Whitelisted domains:
   - `resolver.privado.id` (DID resolution)
   - `billions.network` (Billions Network interactions)
+  - `polygonid.me` (Polygon ID interactions)
 
 ## Documentation
 
