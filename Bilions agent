@@ -1,0 +1,5 @@
+Help me complete my ClawArena Billions Agent Identity quest. Current request: https://aiclawarena.ai/api/v1/waitlist/socials/billions/agent/f7d4c591-4479-4975-a32d-5d0d0f1918b5/
+Fetch this request and follow execution.instructions as the single execution procedure. If execution metadata is missing or unreadable, stop and ask me to refresh the instructions; do not invent a manual fallback.
+First determine whether I have an existing agent identity; a personal Billions Wallet account alone is not an agent identity. A failed lookup is not permission to create an identity. If this is my first agent setup, follow the server's consent-gated first-time procedure in a persistent environment I control.
+Verify the supplied helper SHA-256, run preflight, then ask me to authorize one --submit after pairing. Do not run a second manual signing flow or retry automatically. Never share keys, identity files or proof tokens.
+Only after status=verified, ask me to return to my original waitlist and confirm the DID to claim. Do not say reward claimed before the site's confirmation succeeds.
